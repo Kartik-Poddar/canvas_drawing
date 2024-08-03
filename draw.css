@@ -1,0 +1,83 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+    overflow: auto;
+    background-color: rgba(209, 255, 194, 0.478);
+}
+
+.cartoon {
+    position: absolute;
+    z-index: -1;
+    opacity: 0.2;
+    color: white;
+
+}
+
+.desc {
+    padding: 30px;
+    margin-top: auto;
+    margin-bottom: 0px;
+    text-align: center;
+    font-size: 20px;
+    font-family: cursive;
+}
+
+.heading {
+    font-family: cursive;
+    color: indigo;
+    margin-top: 50px;
+    margin-bottom: -20px;
+    font-weight: 900;
+    font-size: 50px;
+}
+
+.whole_body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.drawing_area {
+    height: 665px;
+    width: 765px;
+    margin-top: 80px;
+    position: relative;
+    border-style: solid;
+    border-width: 8px;
+    border-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: crosshair;
+    background-image: url('face.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.options {
+    margin-top: 60px;
+    display: grid;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.draw_button {
+    display: grid;
+    flex-direction: row;
+    margin-top: 20px;
+    gap: 20px;
+}
