@@ -13,7 +13,8 @@
 <body>
     <div class="whole_body">
         <h1 class="heading">Welcome To Canvas!! </h1>
-        <div class="drawing_area">
+        <div class="drawing_area" id="drawing_area" >
+            <img id="background-image" src="" alt="Background Image">
             <canvas id="c"></canvas>
         </div>
         <div class="options">
@@ -42,13 +43,19 @@
                     </label>
                 </div>
                 <div class="draw_button">
+                    <button class="btn btn-primary" id="changebackground">Change the Background</button>
+                    <div id="change" class="change" style="display: none;">
+                        <input type="file" name="" id="upload_image" class="form-control" />
+                        <button type="submit" class="btn btn-warning" id="changeBack">Submit</button>
+                    </div>
                     <button id="clear-canvas" class="btn btn-danger ">Clear canvas</button>
                     <button id="export-image" class="btn btn-success ">Export canvas</button>
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <footer class="desc">
         <p>The Drawing App is an interactive web-based application designed to provide users with a dynamic canvas for
             drawing and creativity. Utilizing Fabric.js for the canvas functionalities and Bootstrap for an elegant and
@@ -62,4 +69,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <script src="draw.js"></script>
 </body>
+
 </html>

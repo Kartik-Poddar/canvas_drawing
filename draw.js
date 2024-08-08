@@ -77,6 +77,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
     distributeCartoons();
 
+    // var changeBackgroundButton = document.getElementById('changebackground');
+    // var backgroundOptions = document.getElementById('change');
+
+    // changeBackgroundButton.addEventListener('click', function () {
+    //     if (backgroundOptions.style.display === 'none' || backgroundOptions.style.display === '') {
+    //         backgroundOptions.style.display = 'flex';
+    //     } else {
+    //         backgroundOptions.style.display = 'none';
+    //     }
+    // });
+
+    var changeBackgroundButton = $('changebackground');
+    var backgroundOptions = $('change');
+    var changeBackground = $('changeBack');
+    var imgInput = $('upload_image');
+    var backgroundImage = $('background-image');
+
+    changeBackgroundButton.addEventListener('click', function () {
+        if (backgroundOptions.style.display === 'none' || backgroundOptions.style.display === '') {
+            backgroundOptions.style.display = 'flex';
+        } else {
+            backgroundOptions.style.display = 'none';
+        }
+    });
+
+    changeBackground.addEventListener('click', function () {
+        var file = imgInput.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var dataURL = e.target.result;
+                localStorage.setItem('uploadedImage', dataURL);
+                backgroundImage.src = dataURL;
+                // document.getElementById('drawing_area').style.backgroundImage.src = 'url(' + dataURL + ')';
+                // alert('Image saved to local storage.');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please select an image to upload.');
+        }
+    });
+
+    var savedImage = localStorage.getItem('uploadedImage');
+    if (savedImage) {
+        backgroundImage.src = savedImage;
+        // document.getElementById('drawing_area').style.backgroundImage = 'url(' + savedImage + ')';
+    }
+
     // Create pattern brushes
     var createPatternBrush = function (type) {
         var brush = new fabric.PatternBrush(canvas);
@@ -198,35 +246,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Export the canvas as an image with black background and white drawing
     exportEl.addEventListener('click', function () {
-        // Create a temporary canvas to hold the processed image
-        var tempCanvas = document.createElement('canvas');
-        tempCanvas.width = canvas.width;
-        tempCanvas.height = canvas.height;
-        var tempCtx = tempCanvas.getContext('2d');
 
-        // Render the original canvas content onto the temporary canvas
+        var originalWidth = canvas.getWidth();
+        var originalHeight = canvas.getHeight();
+        
+        // Adjust the canvas size to its full resolution
+        canvas.setWidth(750);
+        canvas.setHeight(650);
         canvas.renderAll();
-        var originalCanvas = canvas.lowerCanvasEl;
-        tempCtx.drawImage(originalCanvas, 0, 0);
 
-        // Get image data from the temporary canvas
-        var imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-        var data = imageData.data;
+        // Export the image
+        var dataURL = canvas.toDataURL({
+            format: 'png',
+            quality: 1.0
+        });
 
-        // Process the image data to convert drawn pixels to white
-        for (var i = 0; i < data.length; i += 4) {
-            if (data[i + 3] > 0) { // If the pixel is not black
-                data[i] = 255; // Red
-                data[i + 1] = 255; // Green
-                data[i + 2] = 255; // Blue
-            }
-        }
+        // Revert the canvas size back to its original size
+        canvas.setWidth(originalWidth);
+        canvas.setHeight(originalHeight);
+        canvas.renderAll();
 
-        // Put the processed image data back to the temporary canvas
-        tempCtx.putImageData(imageData, 0, 0);
-
-        // Convert the temporary canvas to a data URL
-        var dataURL = tempCanvas.toDataURL('image/png');
+        // for (var i = 0; i < data.length; i += 4) {
+        //     if (data[i + 3] > 0) { // If the pixel is not black
+        //         data[i] = 255; // Red
+        //         data[i + 1] = 255; // Green
+        //         data[i + 2] = 255; // Blue
+        //     }
+        // }
 
         // Create a download link and trigger the download
         var downloadLink = document.createElement('a');
@@ -235,6 +281,42 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+
+
+        // // Create a temporary canvas to hold the processed image
+        // 
+
+        // // Render the original canvas content onto the temporary canvas
+        // canvas.renderAll();
+        // var originalCanvas = canvas.lowerCanvasEl;
+        // tempCtx.drawImage(originalCanvas, 0, 0);
+
+        // // Get image data from the temporary canvas
+        // var imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        // var data = imageData.data;
+
+        // // Process the image data to convert drawn pixels to white
+        // for (var i = 0; i < data.length; i += 4) {
+        //     if (data[i + 3] > 0) { // If the pixel is not black
+        //         data[i] = 255; // Red
+        //         data[i + 1] = 255; // Green
+        //         data[i + 2] = 255; // Blue
+        //     }
+        // }
+
+        // // Put the processed image data back to the temporary canvas
+        // tempCtx.putImageData(imageData, 0, 0);
+
+        // // Convert the temporary canvas to a data URL
+        // var dataURL = tempCanvas.toDataURL('image/png');
+
+        // // Create a download link and trigger the download
+        // var downloadLink = document.createElement('a');
+        // downloadLink.href = dataURL;
+        // downloadLink.download = 'canvas_drawing.png';
+        // document.body.appendChild(downloadLink);
+        // downloadLink.click();
+        // document.body.removeChild(downloadLink);
     });
 
     // Clear canvas
