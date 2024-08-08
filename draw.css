@@ -1,7 +1,6 @@
 body {
     min-height: 100vh;
-    margin: 0;
-    position: relative;
+    position: absolute;
     overflow: auto;
     background-color: rgba(209, 255, 194, 0.478);
     justify-content: center;
@@ -37,6 +36,7 @@ body {
 .whole_body {
     height: 100%;
     width: 100%;
+    margin-left: 30px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -44,13 +44,11 @@ body {
 }
 
 #drawing_area {
-    height: 665px;
-    width: 765px;
     margin-top: 80px;
     position: relative;
     border-style: solid;
-    border-width: 8px;
-    border-color: aliceblue;
+    border-width: 9px;
+    border-color: rgb(227, 213, 255);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +82,7 @@ canvas {
     margin: 0;
 }
 
-.draw_button{
+.draw_button {
     display: grid;
     flex-direction: row;
     margin-top: 20px;

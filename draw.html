@@ -13,8 +13,8 @@
 <body>
     <div class="whole_body">
         <h1 class="heading">Welcome To Canvas!! </h1>
-        <div class="drawing_area" id="drawing_area" >
-            <img id="background-image" src="" alt="Background Image">
+        <div class="drawing_area" id="drawing_area">
+            <img id="background-image" src="face.jpg" alt="Background Image">
             <canvas id="c"></canvas>
         </div>
         <div class="options">
@@ -45,12 +45,15 @@
                 <div class="draw_button">
                     <button class="btn btn-primary" id="changebackground">Change the Background</button>
                     <div id="change" class="change" style="display: none;">
-                        <input type="file" name="" id="upload_image" class="form-control" />
+                        <label>
+                            <label for="input_file" class="form-label" style="font-weight: 500; color: blueviolet;">Only
+                                .jpg/.jpeg/.png supported</label>
+                            <input type="file" name="" id="upload_image" class="form-control" accept="image/*" />
+                        </label>
                         <button type="submit" class="btn btn-warning" id="changeBack">Submit</button>
                     </div>
                     <button id="clear-canvas" class="btn btn-danger ">Clear canvas</button>
                     <button id="export-image" class="btn btn-success ">Export canvas</button>
-
                 </div>
             </div>
         </div>
@@ -69,5 +72,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <script src="draw.js"></script>
 </body>
-
 </html>
