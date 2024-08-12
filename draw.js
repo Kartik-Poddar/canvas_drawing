@@ -149,8 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.lineTo(5, 10);
                     break;
                 case 'square':
+                    var squareWidth = 10, squareDistance = 2;
+                    patternCanvas.width = patternCanvas.height = squareWidth + squareDistance;
                     ctx.fillStyle = this.color;
-                    ctx.fillRect(0, 0, 10, 10);
+                    ctx.fillRect(0, 0, squareWidth, squareWidth);
                     break;
                 case 'diamond':
                     ctx.fillStyle = this.color;
